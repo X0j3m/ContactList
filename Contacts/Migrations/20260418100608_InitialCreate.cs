@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Contacts.Migrations
 {
     /// <inheritdoc />
@@ -79,6 +81,30 @@ namespace Contacts.Migrations
                         onDelete: ReferentialAction.SetNull);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("020b977f-e9f0-4310-af8e-1be21fab0a77"), "Prywatny" },
+                    { new Guid("462cdacf-1d2e-49d7-af10-aefad2d29459"), "Służbowy" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SubCategories",
+                columns: new[] { "Id", "CategoryId", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("b1a7c6d8-3f44-4c9a-9f1a-111111111111"), new Guid("462cdacf-1d2e-49d7-af10-aefad2d29459"), "Szef" },
+                    { new Guid("b2a7c6d8-3f44-4c9a-9f1a-222222222222"), new Guid("462cdacf-1d2e-49d7-af10-aefad2d29459"), "Sprzedaż" },
+                    { new Guid("b3a7c6d8-3f44-4c9a-9f1a-333333333333"), new Guid("462cdacf-1d2e-49d7-af10-aefad2d29459"), "Kontrahent" },
+                    { new Guid("b4a7c6d8-3f44-4c9a-9f1a-444444444444"), new Guid("462cdacf-1d2e-49d7-af10-aefad2d29459"), "Dział IT" },
+                    { new Guid("c1a7c6d8-3f44-4c9a-9f1a-555555555555"), new Guid("020b977f-e9f0-4310-af8e-1be21fab0a77"), "Rodzina" },
+                    { new Guid("c2a7c6d8-3f44-4c9a-9f1a-666666666666"), new Guid("020b977f-e9f0-4310-af8e-1be21fab0a77"), "Przyjaciele" },
+                    { new Guid("c3a7c6d8-3f44-4c9a-9f1a-777777777777"), new Guid("020b977f-e9f0-4310-af8e-1be21fab0a77"), "Znajomi" },
+                    { new Guid("c4a7c6d8-3f44-4c9a-9f1a-888888888888"), new Guid("020b977f-e9f0-4310-af8e-1be21fab0a77"), "Sąsiedzi" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_CategoryId",

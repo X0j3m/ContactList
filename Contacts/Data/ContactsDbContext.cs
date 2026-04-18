@@ -75,6 +75,11 @@ namespace Contacts.Data
                       .WithOne(sc => sc.Category)
                       .HasForeignKey(sc => sc.CategoryId)
                       .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasData(
+                    new Category { Id = Guid.Parse("462cdacf-1d2e-49d7-af10-aefad2d29459"), Name = "Służbowy"},
+                    new Category { Id = Guid.Parse("020b977f-e9f0-4310-af8e-1be21fab0a77"), Name = "Prywatny"}
+                    );
             });
 
             // SubCategory
@@ -85,6 +90,19 @@ namespace Contacts.Data
                 entity.Property(sc => sc.Name)
                       .IsRequired()
                       .HasMaxLength(100);
+
+                // Seed some subcategories linked to the seeded categories
+                entity.HasData(
+                    new SubCategory { Id = Guid.Parse("b1a7c6d8-3f44-4c9a-9f1a-111111111111"), Name = "Szef", CategoryId = Guid.Parse("462cdacf-1d2e-49d7-af10-aefad2d29459") },
+                    new SubCategory { Id = Guid.Parse("b2a7c6d8-3f44-4c9a-9f1a-222222222222"), Name = "Sprzedaż", CategoryId = Guid.Parse("462cdacf-1d2e-49d7-af10-aefad2d29459") },
+                    new SubCategory { Id = Guid.Parse("b3a7c6d8-3f44-4c9a-9f1a-333333333333"), Name = "Kontrahent", CategoryId = Guid.Parse("462cdacf-1d2e-49d7-af10-aefad2d29459") },
+                    new SubCategory { Id = Guid.Parse("b4a7c6d8-3f44-4c9a-9f1a-444444444444"), Name = "Dział IT", CategoryId = Guid.Parse("462cdacf-1d2e-49d7-af10-aefad2d29459") },
+
+                    new SubCategory { Id = Guid.Parse("c1a7c6d8-3f44-4c9a-9f1a-555555555555"), Name = "Rodzina", CategoryId = Guid.Parse("020b977f-e9f0-4310-af8e-1be21fab0a77") },
+                    new SubCategory { Id = Guid.Parse("c2a7c6d8-3f44-4c9a-9f1a-666666666666"), Name = "Przyjaciele", CategoryId = Guid.Parse("020b977f-e9f0-4310-af8e-1be21fab0a77") },
+                    new SubCategory { Id = Guid.Parse("c3a7c6d8-3f44-4c9a-9f1a-777777777777"), Name = "Znajomi", CategoryId = Guid.Parse("020b977f-e9f0-4310-af8e-1be21fab0a77") },
+                    new SubCategory { Id = Guid.Parse("c4a7c6d8-3f44-4c9a-9f1a-888888888888"), Name = "Sąsiedzi", CategoryId = Guid.Parse("020b977f-e9f0-4310-af8e-1be21fab0a77") }
+                );
             });
 
             base.OnModelCreating(modelBuilder);

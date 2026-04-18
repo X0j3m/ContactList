@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Contacts.Migrations
 {
     [DbContext(typeof(ContactsDbContext))]
-    [Migration("20260418092829_InitialCreate")]
+    [Migration("20260418100608_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -36,6 +36,18 @@ namespace Contacts.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("462cdacf-1d2e-49d7-af10-aefad2d29459"),
+                            Name = "Służbowy"
+                        },
+                        new
+                        {
+                            Id = new Guid("020b977f-e9f0-4310-af8e-1be21fab0a77"),
+                            Name = "Prywatny"
+                        });
                 });
 
             modelBuilder.Entity("Contacts.Model.Contact", b =>
@@ -111,6 +123,56 @@ namespace Contacts.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b1a7c6d8-3f44-4c9a-9f1a-111111111111"),
+                            CategoryId = new Guid("462cdacf-1d2e-49d7-af10-aefad2d29459"),
+                            Name = "Szef"
+                        },
+                        new
+                        {
+                            Id = new Guid("b2a7c6d8-3f44-4c9a-9f1a-222222222222"),
+                            CategoryId = new Guid("462cdacf-1d2e-49d7-af10-aefad2d29459"),
+                            Name = "Sprzedaż"
+                        },
+                        new
+                        {
+                            Id = new Guid("b3a7c6d8-3f44-4c9a-9f1a-333333333333"),
+                            CategoryId = new Guid("462cdacf-1d2e-49d7-af10-aefad2d29459"),
+                            Name = "Kontrahent"
+                        },
+                        new
+                        {
+                            Id = new Guid("b4a7c6d8-3f44-4c9a-9f1a-444444444444"),
+                            CategoryId = new Guid("462cdacf-1d2e-49d7-af10-aefad2d29459"),
+                            Name = "Dział IT"
+                        },
+                        new
+                        {
+                            Id = new Guid("c1a7c6d8-3f44-4c9a-9f1a-555555555555"),
+                            CategoryId = new Guid("020b977f-e9f0-4310-af8e-1be21fab0a77"),
+                            Name = "Rodzina"
+                        },
+                        new
+                        {
+                            Id = new Guid("c2a7c6d8-3f44-4c9a-9f1a-666666666666"),
+                            CategoryId = new Guid("020b977f-e9f0-4310-af8e-1be21fab0a77"),
+                            Name = "Przyjaciele"
+                        },
+                        new
+                        {
+                            Id = new Guid("c3a7c6d8-3f44-4c9a-9f1a-777777777777"),
+                            CategoryId = new Guid("020b977f-e9f0-4310-af8e-1be21fab0a77"),
+                            Name = "Znajomi"
+                        },
+                        new
+                        {
+                            Id = new Guid("c4a7c6d8-3f44-4c9a-9f1a-888888888888"),
+                            CategoryId = new Guid("020b977f-e9f0-4310-af8e-1be21fab0a77"),
+                            Name = "Sąsiedzi"
+                        });
                 });
 
             modelBuilder.Entity("Contacts.Model.Contact", b =>
