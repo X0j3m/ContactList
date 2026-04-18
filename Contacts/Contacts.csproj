@@ -24,8 +24,4 @@
     <PackageReference Include="MySql.EntityFrameworkCore" Version="10.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Service\" />
-  </ItemGroup>
-
 </Project>
