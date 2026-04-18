@@ -1,0 +1,13 @@
+services:
+  contacts:
+    image: ${DOCKER_REGISTRY-}contacts
+    build:
+      context: .
+      dockerfile: Contacts/Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - default
+networks:
+  default:
+    name: contacts-network

@@ -1,1 +1,8 @@
-<Solution />
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="Contacts/Contacts.csproj" Id="caaa7c55-069d-4eec-aaf9-6d9592774338" />
+  </Folder>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
+</Solution>
