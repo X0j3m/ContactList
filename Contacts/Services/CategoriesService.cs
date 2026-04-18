@@ -6,10 +6,14 @@ namespace Contacts.Services
     public class CategoriesService : ICategoriesService
     {
         private readonly ICategoriesRepository _categoryRepository;
+        private readonly ISubCategoriesRepository _subCategoryRepository;
 
-        public CategoriesService(ICategoriesRepository categoryRepository)
+        public CategoriesService(
+            ICategoriesRepository categoryRepository,
+            ISubCategoriesRepository subCategoriesRepository)
         {
             _categoryRepository = categoryRepository;
+            _subCategoryRepository = subCategoriesRepository;
         }
 
         public ICollection<Category> GetAllCategories()
@@ -27,6 +31,16 @@ namespace Contacts.Services
             {
                 return null;
             }
+        }
+
+        public ICollection<SubCategory> GetSubCategoriesByCategoryId(Guid CategoryId)
+        {
+            var category = GetCategoryById(CategoryId);
+            if(category == null)
+            {
+                return new List<SubCategory>();
+            }
+            return _subCategoryRepository.GetByCategoryId(CategoryId);
         }
     }
 }

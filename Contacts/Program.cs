@@ -1,4 +1,6 @@
 using Contacts.Data;
+using Contacts.Interfaces;
+using Contacts.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // Add services to the container.
 builder.Services.AddDbContext<ContactsDbContext>(options =>
     options.UseMySQL(connectionString));
+
+builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+builder.Services.AddScoped<ISubCategoriesRepository, SubCategoriesRepository>();
+
+builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+builder.Services.AddScoped<ISubCategoriesService, SubCategoriesService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

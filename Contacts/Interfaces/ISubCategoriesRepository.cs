@@ -6,7 +6,7 @@ namespace Contacts.Interfaces
     {
         bool Exists(Guid Id);
         ICollection<SubCategory> GetAll();
-        ICollection<SubCategory> GetAllByCategoryId(Guid CategoryId);
         SubCategory GetById(Guid Id);
+        ICollection<SubCategory> GetByCategoryId(Guid CategoryId);
     }
 }

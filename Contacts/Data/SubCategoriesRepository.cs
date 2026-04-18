@@ -24,7 +24,7 @@ namespace Contacts.Data
                 .ToList();
         }
 
-        public ICollection<SubCategory> GetAllByCategoryId(Guid CategoryId)
+        public ICollection<SubCategory> GetByCategoryId(Guid CategoryId)
         {
             return _dbContext.SubCategories
                 .Where(sc => sc.CategoryId == CategoryId)

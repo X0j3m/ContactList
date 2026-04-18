@@ -1,5 +1,6 @@
 ﻿using Contacts.Interfaces;
 using Contacts.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Contacts.Data
 {
@@ -20,8 +21,7 @@ namespace Contacts.Data
 
         public ICollection<Category> GetAll()
         {
-            return _dbContext.Categories
-                .ToList();
+            return _dbContext.Categories.ToList();
         }
 
         public Category GetById(Guid Id)

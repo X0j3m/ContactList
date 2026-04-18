@@ -17,11 +17,6 @@ namespace Contacts.Services
             return _subCategoryRepository.GetAll();
         }
 
-        public ICollection<SubCategory> GetAllSubCategoriesByCategoryId(Guid CategoryId)
-        {
-            return _subCategoryRepository.GetAllByCategoryId(CategoryId);
-        }
-
         public SubCategory? GetSubCategoryById(Guid Id)
         {
             try

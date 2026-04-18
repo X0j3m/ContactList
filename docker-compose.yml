@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Contacts/Dockerfile
+    depends_on:
+      - db
     ports:
       - "8080:8080"
     networks:
@@ -20,7 +22,8 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-
+    networks:
+      - default
 
 volumes:
   db_data:

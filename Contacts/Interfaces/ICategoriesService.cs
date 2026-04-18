@@ -6,5 +6,6 @@ namespace Contacts.Interfaces
     {
         ICollection<Category> GetAllCategories();
         Category? GetCategoryById(Guid Id);
+        ICollection<SubCategory> GetSubCategoriesByCategoryId(Guid CategoryId);
     }
 }
