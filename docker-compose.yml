@@ -1,4 +1,5 @@
 services:
+
   contacts:
     image: ${DOCKER_REGISTRY-}contacts
     build:
@@ -8,6 +9,25 @@ services:
       - "8080:8080"
     networks:
       - default
+
+  db:
+    image: mariadb:lts
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=root_password
+      - MARIADB_DATABASE=contact_list_db
+      - MARIADB_USER=mariadb_user
+      - MARIADB_PASSWORD=user_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+
+volumes:
+  db_data:
+
+
 networks:
   default:
     name: contacts-network
