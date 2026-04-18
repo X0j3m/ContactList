@@ -415,8 +415,6 @@ FodyWeavers.xsd
 *.msi
 *.msix
 *.msm
-<<<<<<< HEAD
 *.msp
-=======
-*.msp
->>>>>>> 97dfd7991216ba107cace6a5df1f703351f9a25a
+
+ContactListSql
