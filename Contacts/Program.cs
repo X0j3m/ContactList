@@ -6,6 +6,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if(connectionString == null)
+{
+    throw new Exception("Connection string not found");
+}
 
 // Add services to the container.
 builder.Services.AddDbContext<ContactsDbContext>(options =>
