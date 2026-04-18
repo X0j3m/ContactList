@@ -17,11 +17,11 @@ namespace Contacts.Services
             return _subCategoryRepository.GetAll();
         }
 
-        public SubCategory? GetSubCategoryById(Guid Id)
+        public SubCategory? GetSubCategoryById(Guid id)
         {
             try
             {
-                return _subCategoryRepository.GetById(Id);
+                return _subCategoryRepository.GetById(id);
             }
             catch (KeyNotFoundException)
             {

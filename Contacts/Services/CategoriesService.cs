@@ -21,11 +21,11 @@ namespace Contacts.Services
             return _categoryRepository.GetAll();
         }
 
-        public Category? GetCategoryById(Guid Id)
+        public Category? GetCategoryById(Guid id)
         {
             try
             {
-                return _categoryRepository.GetById(Id);
+                return _categoryRepository.GetById(id);
             }
             catch (KeyNotFoundException)
             {
@@ -33,14 +33,14 @@ namespace Contacts.Services
             }
         }
 
-        public ICollection<SubCategory> GetSubCategoriesByCategoryId(Guid CategoryId)
+        public ICollection<SubCategory> GetSubCategoriesByCategoryId(Guid categoryId)
         {
-            var category = GetCategoryById(CategoryId);
+            var category = GetCategoryById(categoryId);
             if(category == null)
             {
                 return new List<SubCategory>();
             }
-            return _subCategoryRepository.GetByCategoryId(CategoryId);
+            return _subCategoryRepository.GetByCategoryId(categoryId);
         }
     }
 }

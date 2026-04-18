@@ -5,7 +5,7 @@ namespace Contacts.Interfaces
     public interface ICategoriesService
     {
         ICollection<Category> GetAllCategories();
-        Category? GetCategoryById(Guid Id);
-        ICollection<SubCategory> GetSubCategoriesByCategoryId(Guid CategoryId);
+        Category? GetCategoryById(Guid id);
+        ICollection<SubCategory> GetSubCategoriesByCategoryId(Guid categoryId);
     }
 }
