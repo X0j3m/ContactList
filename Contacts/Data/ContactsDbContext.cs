@@ -48,16 +48,16 @@ namespace Contacts.Data
                 entity.Property(c => c.BirthDate)
                       .HasConversion(dateOnlyConverter);
 
-                // Configure optional relationships using shadow foreign keys
+                // Configure optional relationship       using explicit FK properties and navigation collections
                 entity.HasOne(c => c.Category)
-                      .WithMany()
-                      .HasForeignKey("CategoryId")
+                      .WithMany(cat => cat.Contacts)
+                      .HasForeignKey(c => c.CategoryId)
                       .IsRequired(false)
                       .OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne(c => c.SubCategory)
-                      .WithMany()
-                      .HasForeignKey("SubCategoryId")
+                      .WithMany(sc => sc.Contacts)
+                      .HasForeignKey(c => c.SubCategoryId)
                       .IsRequired(false)
                       .OnDelete(DeleteBehavior.SetNull);
             });

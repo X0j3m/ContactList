@@ -17,9 +17,11 @@ builder.Services.AddDbContext<ContactsDbContext>(options =>
 
 builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddScoped<ISubCategoriesRepository, SubCategoriesRepository>();
+builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
 
 builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 builder.Services.AddScoped<ISubCategoriesService, SubCategoriesService>();
+builder.Services.AddScoped<IContactsService, ContactsService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

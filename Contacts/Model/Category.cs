@@ -2,12 +2,13 @@
 
 namespace Contacts.Model
 {
-    public class Category
+    public record Category
     {
         public Guid Id { get; init; }
-        public string Name { get; init; }
+        public required string Name { get; init; }
 
         public ICollection<SubCategory> SubCategories { get; init; } = new List<SubCategory>();
+        public ICollection<Contact> Contacts { get; init; } = new List<Contact>();
 
         public CategoryDTO ToDTO()
         {

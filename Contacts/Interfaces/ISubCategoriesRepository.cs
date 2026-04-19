@@ -4,9 +4,9 @@ namespace Contacts.Interfaces
 {
     public interface ISubCategoriesRepository
     {
-        bool Exists(Guid Id);
+        bool Exists(Guid id);
         ICollection<SubCategory> GetAll();
-        SubCategory GetById(Guid Id);
-        ICollection<SubCategory> GetByCategoryId(Guid CategoryId);
+        SubCategory GetById(Guid id);
+        ICollection<SubCategory> GetByCategoryId(Guid categoryId);
     }
 }

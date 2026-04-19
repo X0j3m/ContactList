@@ -5,6 +5,6 @@ namespace Contacts.Interfaces
     public interface ISubCategoriesService
     {
         ICollection<SubCategory> GetAllSubCategories();
-        SubCategory? GetSubCategoryById(Guid Id);
+        SubCategory? GetSubCategoryById(Guid id);
     }
 }
