@@ -343,7 +343,7 @@ Contacts POST request body example
 Contacts PUT request body example
 ``` bash
 { 
-  "Id": "<GUID>"
+    "Id": "<GUID>"
 	"Name": "John",
 	"Surname": "Doe",
 	"Email": "john@example.com",
