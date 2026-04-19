@@ -1,4 +1,5 @@
 ﻿using Contacts.Model;
+using Contacts.Security;
 using System.Net.Mail;
 
 namespace Contacts.DTOs
@@ -18,6 +19,11 @@ namespace Contacts.DTOs
 
         public static Contact? ToEntity(ContactDTO dto)
         {
+            // Validate password, if meets the criteria of strong password
+            var validPassword = PasswordValidator.MeetTheCriteria(dto.Password);
+            if (!validPassword) {
+                return null;
+            }
             try
             {
                 // Validate email format, if invalid, a FormatException will be thrown
