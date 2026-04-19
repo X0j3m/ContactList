@@ -6,6 +6,7 @@ namespace Contacts.Interfaces
     {
         bool Exists(Guid id);
         bool Exists(string email);
+        bool Exists(Guid id, string email);
         ICollection<Contact> GetAll();
         Contact GetById(Guid id);
         void Create(Contact contact);

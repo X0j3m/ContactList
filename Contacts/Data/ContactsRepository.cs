@@ -40,6 +40,11 @@ namespace Contacts.Data
             return _dbContext.Contacts.Any(c => c.Email == email);
         }
 
+        public bool Exists(Guid id, string email)
+        {
+            return _dbContext.Contacts.Any(c => (c.Id == id && c.Email == email));
+        }
+
         public ICollection<Contact> GetAll()
         {
             return _dbContext.Contacts.ToList();
@@ -60,11 +65,13 @@ namespace Contacts.Data
             {
                 throw new KeyNotFoundException($"Contact with id {contact.Id} not found.");
             }
-            if (Exists(contact.Email))
+            if (Exists(contact.Email) && !Exists(contact.Id, contact.Email))
             {
-                throw new InvalidOperationException($"Contact with email {contact.Email} already exists.");
+                throw new ArgumentException($"Contact with email {contact.Email} already exists.");
             }
-            _dbContext.Contacts.Update(contact);
+
+            var existing = GetById(contact.Id);
+            _dbContext.Entry(existing).CurrentValues.SetValues(contact);
             _dbContext.SaveChanges();
             return;
         }

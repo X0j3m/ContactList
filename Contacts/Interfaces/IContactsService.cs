@@ -8,7 +8,7 @@ namespace Contacts.Interfaces
         ICollection<ContactDTO> GetAll();
         ContactDTO? GetById(Guid id);
         Guid Create(CreateContactDTO contactDto);
-        void Update(UpdateContactDTO updateContactDto);
-        void Delete(Guid id);
+        Guid Update(Guid id, UpdateContactDTO updateContactDto);
+        bool Delete(Guid id);
     }
 }

@@ -64,14 +64,17 @@ namespace Contacts.Services
             catch (KeyNotFoundException) { return Guid.Empty; }
         }
 
-        public void Delete(Guid id)
+        public bool Delete(Guid id)
         {
             try
             {
                 _contactsRepository.Delete(id);
+                return true;
             }
-            catch (KeyNotFoundException) { }
-            return;
+            catch (KeyNotFoundException)
+            {
+                return false;
+            }
         }
 
         public ICollection<ContactDTO> GetAll()
@@ -92,33 +95,32 @@ namespace Contacts.Services
             }
         }
 
-        public void Update(UpdateContactDTO updateContactDto)
+        public Guid Update(Guid id, UpdateContactDTO updateContactDto)
         {
             try
             {
-                if(updateContactDto.CategoryId !=null && updateContactDto.SubcategoryId != null)
+                if (updateContactDto.CategoryId != null && updateContactDto.SubcategoryId != null)
                 {
-                    var category = _categoriesRepository.GetById(Guid.Parse(updateContactDto.CategoryId));
-                    var subcategory = _subcategoriesRepository.GetById(Guid.Parse(updateContactDto.SubcategoryId));
                     var contact = new Contact
                     {
-                        Id = updateContactDto.Id,
+                        Id = id,
                         Name = updateContactDto.Name,
                         Surname = updateContactDto.Surname,
                         Email = updateContactDto.Email,
                         Password = updateContactDto.Password,
-                        Category = category,
-                        SubCategory = subcategory,
+                        CategoryId = Guid.Parse(updateContactDto.CategoryId),
+                        SubCategoryId = Guid.Parse(updateContactDto.SubcategoryId),
                         Phone = updateContactDto.Phone,
                         BirthDate = DateOnly.Parse(updateContactDto.BirthDate)
                     };
                     _contactsRepository.Update(contact);
+                    return contact.Id;
                 }
                 else
                 {
                     var contact = new Contact
                     {
-                        Id = updateContactDto.Id,
+                        Id = id,
                         Name = updateContactDto.Name,
                         Surname = updateContactDto.Surname,
                         Email = updateContactDto.Email,
@@ -128,11 +130,12 @@ namespace Contacts.Services
                         BirthDate = DateOnly.Parse(updateContactDto.BirthDate)
                     };
                     _contactsRepository.Update(contact);
+                    return contact.Id;
                 }
             }
             catch (ArgumentException) { }
             catch (KeyNotFoundException) { }
-            return;
+            return Guid.Empty;
         }
     }
 }
