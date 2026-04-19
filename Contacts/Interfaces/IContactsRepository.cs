@@ -1,4 +1,5 @@
 ﻿using Contacts.Model;
+using System.Net.Mail;
 
 namespace Contacts.Interfaces
 {

@@ -1,4 +1,5 @@
 ﻿using Contacts.DTOs;
+using System.Net.Mail;
 
 namespace Contacts.Model
 {

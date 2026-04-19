@@ -1,4 +1,7 @@
-﻿namespace Contacts.DTOs
+﻿using Contacts.Model;
+using System.Net.Mail;
+
+namespace Contacts.DTOs
 {
     public record ContactDTO
     {
@@ -12,8 +15,33 @@
         public string? CustomSubCategory { get; set; }
         public string Phone { get; set; }
         public string BirthDate { get; set; }
-    }
 
+        public static Contact? ToEntity(ContactDTO dto)
+        {
+            try
+            {
+                // Validate email format, if invalid, a FormatException will be thrown
+                new MailAddress(dto.Email);
+
+                return new Contact
+                {
+                    Id = dto.Id,
+                    Name = dto.Name,
+                    Surname = dto.Surname,
+                    Email = dto.Email,
+                    Password = dto.Password,
+                    CategoryId = string.IsNullOrEmpty(dto.CategoryId) ? null : Guid.Parse(dto.CategoryId),
+                    SubCategoryId = string.IsNullOrEmpty(dto.SubcategoryId) ? null : Guid.Parse(dto.SubcategoryId),
+                    CustomSubCategory = dto.CustomSubCategory,
+                    Phone = dto.Phone,
+                    BirthDate = DateOnly.Parse(dto.BirthDate)
+                };
+            }catch (FormatException)
+            {
+                return null;
+            }
+        }
+    }
     public record CreateContactDTO
     {
         public string Name { get; init; }
@@ -26,7 +54,7 @@
         public string Phone { get; init; }
         public string BirthDate { get; init; }
     }
-     public record UpdateContactDTO
+    public record UpdateContactDTO
     {
         public string Name { get; init; }
         public string Surname { get; init; }

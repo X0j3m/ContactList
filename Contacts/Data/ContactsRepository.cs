@@ -1,5 +1,6 @@
 ﻿using Contacts.Interfaces;
 using Contacts.Model;
+using System.Net.Mail;
 
 namespace Contacts.Data
 {

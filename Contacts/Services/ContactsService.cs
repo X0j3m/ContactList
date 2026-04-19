@@ -1,6 +1,7 @@
 ﻿using Contacts.DTOs;
 using Contacts.Interfaces;
 using Contacts.Model;
+using System.Net.Mail;
 
 namespace Contacts.Services
 {
@@ -24,41 +25,26 @@ namespace Contacts.Services
         {
             try
             {
-                if (contactDto.CategoryId != null && contactDto.SubcategoryId != null)
-                {
-                    var category = _categoriesRepository.GetById(Guid.Parse(contactDto.CategoryId));
-                    var subcategory = _subcategoriesRepository.GetById(Guid.Parse(contactDto.SubcategoryId));
-                    var contact = new Contact
+                var contact = ContactDTO.ToEntity(
+                    new ContactDTO
                     {
-                        Id = Guid.NewGuid(),
                         Name = contactDto.Name,
                         Surname = contactDto.Surname,
                         Email = contactDto.Email,
                         Password = contactDto.Password,
-                        Category = category,
-                        SubCategory = subcategory,
-                        Phone = contactDto.Phone,
-                        BirthDate = DateOnly.Parse(contactDto.BirthDate)
-                    };
-                    _contactsRepository.Create(contact);
-                    return contact.Id;
-                }
-                else
-                {
-                    var contact = new Contact
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = contactDto.Name,
-                        Surname = contactDto.Surname,
-                        Email = contactDto.Email,
-                        Password = contactDto.Password,
+                        CategoryId = contactDto.CategoryId,
+                        SubcategoryId = contactDto.SubcategoryId,
                         CustomSubCategory = contactDto.CustomSubCategory,
                         Phone = contactDto.Phone,
-                        BirthDate = DateOnly.Parse(contactDto.BirthDate)
-                    };
-                    _contactsRepository.Create(contact);
-                    return contact.Id;
+                        BirthDate = contactDto.BirthDate
+                    }
+                    );
+                if (contact == null)
+                {
+                    return Guid.Empty;
                 }
+                _contactsRepository.Create(contact);
+                return contact.Id;
             }
             catch (ArgumentException) { return Guid.Empty; }
             catch (KeyNotFoundException) { return Guid.Empty; }
@@ -99,43 +85,30 @@ namespace Contacts.Services
         {
             try
             {
-                if (updateContactDto.CategoryId != null && updateContactDto.SubcategoryId != null)
-                {
-                    var contact = new Contact
+                var contact = ContactDTO.ToEntity(
+                    new ContactDTO
                     {
                         Id = id,
                         Name = updateContactDto.Name,
                         Surname = updateContactDto.Surname,
                         Email = updateContactDto.Email,
                         Password = updateContactDto.Password,
-                        CategoryId = Guid.Parse(updateContactDto.CategoryId),
-                        SubCategoryId = Guid.Parse(updateContactDto.SubcategoryId),
-                        Phone = updateContactDto.Phone,
-                        BirthDate = DateOnly.Parse(updateContactDto.BirthDate)
-                    };
-                    _contactsRepository.Update(contact);
-                    return contact.Id;
-                }
-                else
-                {
-                    var contact = new Contact
-                    {
-                        Id = id,
-                        Name = updateContactDto.Name,
-                        Surname = updateContactDto.Surname,
-                        Email = updateContactDto.Email,
-                        Password = updateContactDto.Password,
+                        CategoryId = updateContactDto.CategoryId,
+                        SubcategoryId = updateContactDto.SubcategoryId,
                         CustomSubCategory = updateContactDto.CustomSubCategory,
                         Phone = updateContactDto.Phone,
-                        BirthDate = DateOnly.Parse(updateContactDto.BirthDate)
-                    };
-                    _contactsRepository.Update(contact);
-                    return contact.Id;
+                        BirthDate = updateContactDto.BirthDate
+                    }
+                    );
+                if (contact == null)
+                {
+                    return Guid.Empty;
                 }
+                _contactsRepository.Update(contact);
+                return contact.Id;
             }
-            catch (ArgumentException) { }
-            catch (KeyNotFoundException) { }
-            return Guid.Empty;
+            catch (ArgumentException) { return Guid.Empty; }
+            catch (KeyNotFoundException) { return Guid.Empty; }
         }
     }
 }
