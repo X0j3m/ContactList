@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="Contacts/Contacts.csproj" Id="caaa7c55-069d-4eec-aaf9-6d9592774338" />
+    <Project Path="Security/Security.csproj" Id="75aa7a7f-6518-4d01-93be-2360a7851a6c" />
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />

@@ -12,6 +12,18 @@ services:
     networks:
       - default
 
+  security:
+    image: ${DOCKER_REGISTRY-}security
+    build:
+      context: .
+      dockerfile: Security/Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8081:8081"
+    networks:
+      - default
+
   db:
     image: mysql:8.4.8
     restart: always
