@@ -1,8 +1,7 @@
 
 # ContactList
 
-*A brief description of the project (one or two sentences explaining the purpose of the application).* 
-
+*A web application built with .NET 10 to manage a contact database with categories and subcategories, supporting full CRUD operations and Docker orchestration.*
 ---
 
 ## 📖 Libraries & Dependencies
