@@ -11,7 +11,7 @@ The following technologies and libraries were used in this project:
 * **.NET 10** - Core framework.
 * **Microsoft.EntityFrameworkCore** - ORM for database operations.
 * **MySql.EntityFrameworkCore** - MySQL provider for EF Core.
-* **Microsoft.VisualStudio.Azure.Containers.Tools.** - Containerization support.
+* **Microsoft.VisualStudio.Azure.Containers.Tools** - Containerization support.
 
 ---
 
