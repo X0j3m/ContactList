@@ -19,10 +19,11 @@ namespace Contacts.Data
             return;
         }
 
-        public void Delete(Contact contact)
+        public void Delete(Guid id)
         {
-            if (Exists(contact.Id))
+            if (Exists(id))
             {
+                var contact = _dbContext.Contacts.First(c => c.Id == id);
                 _dbContext.Contacts.Remove(contact);
                 _dbContext.SaveChanges();
             }

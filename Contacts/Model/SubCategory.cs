@@ -9,6 +9,7 @@ namespace Contacts.Model
 
         public Guid CategoryId { get; init; }
         public Category Category { get; init; } = default!;
+        public ICollection<Contact> Contacts { get; init; } = new List<Contact>();
 
         public SubCategoryDTO ToDTO()
         {

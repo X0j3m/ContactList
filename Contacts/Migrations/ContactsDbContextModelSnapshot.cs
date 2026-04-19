@@ -175,12 +175,12 @@ namespace Contacts.Migrations
             modelBuilder.Entity("Contacts.Model.Contact", b =>
                 {
                     b.HasOne("Contacts.Model.Category", "Category")
-                        .WithMany()
+                        .WithMany("Contacts")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Contacts.Model.SubCategory", "SubCategory")
-                        .WithMany()
+                        .WithMany("Contacts")
                         .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
 
@@ -202,7 +202,14 @@ namespace Contacts.Migrations
 
             modelBuilder.Entity("Contacts.Model.Category", b =>
                 {
+                    b.Navigation("Contacts");
+
                     b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("Contacts.Model.SubCategory", b =>
+                {
+                    b.Navigation("Contacts");
                 });
 #pragma warning restore 612, 618
         }

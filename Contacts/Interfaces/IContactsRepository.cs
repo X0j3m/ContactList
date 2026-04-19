@@ -10,6 +10,6 @@ namespace Contacts.Interfaces
         Contact GetById(Guid id);
         void Create(Contact contact);
         void Update(Contact contact);
-        void Delete(Contact contact);
+        void Delete(Guid id);
     }
 }
