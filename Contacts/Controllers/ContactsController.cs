@@ -1,5 +1,6 @@
 ﻿using Contacts.DTOs;
 using Contacts.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contacts.Controller
@@ -34,6 +35,7 @@ namespace Contacts.Controller
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult CreateContact(CreateContactDTO createContactDto)
         {
             var contactId = _contactsService.Create(createContactDto);
@@ -46,6 +48,7 @@ namespace Contacts.Controller
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize]
         public ActionResult UpdateContact(Guid id, UpdateContactDTO updateContactDto)
         {
             if (GetById(id).Result.GetType() == typeof(NotFoundResult))
@@ -62,6 +65,7 @@ namespace Contacts.Controller
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize]
         public ActionResult DeleteContact(Guid id)
         {
             var success = _contactsService.Delete(id);
