@@ -4,6 +4,10 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="Contacts/Contacts.csproj" Id="caaa7c55-069d-4eec-aaf9-6d9592774338" />
+    <Project Path="Frontend/Frontend.esproj">
+      <Build />
+      <Deploy />
+    </Project>
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />

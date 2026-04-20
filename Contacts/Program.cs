@@ -9,8 +9,16 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular",
+        policy => policy.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+});
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-if(connectionString == null)
+if (connectionString == null)
 {
     throw new Exception("Connection string not found");
 }
@@ -55,6 +63,8 @@ builder.Services.AddControllers();
 
 
 var app = builder.Build();
+
+app.UseCors("AllowAngular");
 
 app.UseHttpsRedirection();
 
