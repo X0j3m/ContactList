@@ -1,4 +1,5 @@
 ﻿using Contacts.Interfaces;
+using Contacts.Security;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contacts.Controllers
@@ -15,9 +16,13 @@ namespace Contacts.Controllers
         }
 
         [HttpGet]
-        public ActionResult<string> Login()
+        public ActionResult<JwtToken> Login()
         {
-            var token = _jwt.GenerateJwtToken("testuser");
+            var token = _jwt.GenerateJwtToken("user");
+            if (string.IsNullOrEmpty(token.Token))
+            {
+                return BadRequest("Error generating JWT token");
+            }
             return Ok(token);
         }
     }

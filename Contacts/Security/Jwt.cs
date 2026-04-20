@@ -15,26 +15,40 @@ namespace Contacts.Security
             _configuration = configuration;
         }
 
-        public string GenerateJwtToken(string username)
+        public JwtToken GenerateJwtToken(string username)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? throw new Exception("JWT Key not found"));
-            var keyExpiryMinutes = _configuration["Jwt:ExpiryMinutes"];
-            var tokenDescriptor = new SecurityTokenDescriptor
+            try
             {
-                Subject = new ClaimsIdentity(new[]
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? throw new Exception("JWT Key not found"));
+                var keyExpiryMinutes = _configuration["Jwt:ExpiryMinutes"];
+                var expirationDate = DateTime.UtcNow.AddMinutes(int.Parse(keyExpiryMinutes ?? throw new Exception("JWT ExpiryMinutes not found")));
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, username)
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(int.Parse(keyExpiryMinutes ?? throw new Exception("JWT ExpiryMinutes not found"))),
-                Issuer = _configuration["Jwt:Issuer"],
-                Audience = _configuration["Jwt:Audience"],
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+                    Expires = expirationDate,
+                    Issuer = _configuration["Jwt:Issuer"],
+                    Audience = _configuration["Jwt:Audience"],
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
+                return new JwtToken
+                {
+                    Token = tokenString
+                };
+            }
+            catch
+            {
+                return new JwtToken
+                {
+                    Token = string.Empty
+                };
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace Contacts.Interfaces
+﻿using Contacts.Security;
+
+namespace Contacts.Interfaces
 {
     public interface IJwt
     {
-        string GenerateJwtToken(string username);
+        JwtToken GenerateJwtToken(string username);
     }
 }
