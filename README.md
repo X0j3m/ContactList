@@ -12,6 +12,7 @@ The following technologies and libraries were used in this project:
 * **Microsoft.EntityFrameworkCore** - ORM for database operations.
 * **MySql.EntityFrameworkCore** - MySQL provider for EF Core.
 * **Microsoft.VisualStudio.Azure.Containers.Tools** - Containerization support.
+* **Microsoft.AspNetCore.Authentication.JwtBearer** - JWT Token support
 
 ---
 
