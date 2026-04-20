@@ -34,6 +34,7 @@ export class LoginService {
     if (token != null && !this.isTokenExpired(token)) {
       return true;
     }
+    localStorage.removeItem('token');
     return false;
   }
 
