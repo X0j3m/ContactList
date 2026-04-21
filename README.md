@@ -18,7 +18,6 @@ The following technologies and libraries were used in this project:
 
 ## 💻 Classes and Methods Overview
 
-
 ### Controllers
 
 #### Class: `CategoriesController`
@@ -82,92 +81,6 @@ The following technologies and libraries were used in this project:
 | `Contacts` | Collection of `Contact` |
 | `ToDTO()` | Converts entity to `SubCategoryDTO` |
 
-### DTOs
-
-#### `ContactDTO`
-| Field | Description |
-| :--- | :--- |
-| `Id` | Contact identifier |
-| `Name` | First name |
-| `Surname` | Last name |
-| `Email` | Email address |
-| `Password` | Password (validated by PasswordValidator) |
-| `CategoryId?` | Category Id as string |
-| `SubcategoryId?` | Subcategory Id as string |
-| `CustomSubCategory?` | Custom subcategory text |
-| `Phone` | Phone number |
-| `BirthDate` | Birth date as ISO string (yyyy-MM-dd) |
-| `ToEntity(ContactDTO)` | Static method: validates email and password, converts DTO to `Contact` (returns null on validation error) |
-
-#### `CreateContactDTO`, `UpdateContactDTO`
-| Field | Description |
-| :--- | :--- |
-| `Name`, `Surname`, `Email`, `Password`, `CategoryId?`, `SubcategoryId?`, `CustomSubCategory?`, `Phone`, `BirthDate` | Input fields used for create/update operations |
-
-#### `CategoryDTO`
-| Field | Description |
-| :--- | :--- |
-| `Id` | Category identifier |
-| `Name` | Category name |
-
-#### `SubCategoryDTO`
-| Field | Description |
-| :--- | :--- |
-| `Id` | Subcategory identifier |
-| `Name` | Subcategory name |
-| `CategoryId` | Parent category Id |
-
-### Interfaces
-
-#### `IContactsRepository`
-| Method | Description |
-| :--- | :--- |
-| `bool Exists(Guid id)` | Checks if contact with id exists |
-| `bool Exists(string email)` | Checks if contact with email exists |
-| `bool Exists(Guid id, string email)` | Checks if contact with id and email exists |
-| `ICollection<Contact> GetAll()` | Returns all contacts |
-| `Contact GetById(Guid id)` | Returns contact or throws if not found |
-| `void Create(Contact contact)` | Adds contact to store |
-| `void Update(Contact contact)` | Updates existing contact |
-| `void Delete(Guid id)` | Deletes contact by id |
-
-#### `ICategoriesRepository`
-| Method | Description |
-| :--- | :--- |
-| `bool Exists(Guid id)` | Checks if category exists |
-| `ICollection<Category> GetAll()` | Returns all categories |
-| `Category GetById(Guid id)` | Returns category or throws if not found |
-
-#### `ISubCategoriesRepository`
-| Method | Description |
-| :--- | :--- |
-| `bool Exists(Guid id)` | Checks if subcategory exists |
-| `ICollection<SubCategory> GetAll()` | Returns all subcategories |
-| `SubCategory GetById(Guid id)` | Returns subcategory or throws if not found |
-| `ICollection<SubCategory> GetByCategoryId(Guid categoryId)` | Returns subcategories for a category |
-
-#### `IContactsService`
-| Method | Description |
-| :--- | :--- |
-| `Guid Create(CreateContactDTO contactDto)` | Business logic for creating a contact, returns created Id or Guid.Empty on failure |
-| `bool Delete(Guid id)` | Business logic for deletion, returns success |
-| `ICollection<ContactDTO> GetAll()` | Returns all contacts as DTOs |
-| `ContactDTO? GetById(Guid id)` | Returns a contact DTO or null if not found |
-| `Guid Update(Guid id, UpdateContactDTO updateContactDto)` | Updates contact, returns id or Guid.Empty on failure |
-
-#### `ICategoriesService`
-| Method | Description |
-| :--- | :--- |
-| `ICollection<Category> GetAllCategories()` | Returns all categories |
-| `Category? GetCategoryById(Guid id)` | Returns category or null if not found |
-| `ICollection<SubCategory> GetSubCategoriesByCategoryId(Guid categoryId)` | Returns subcategories for category |
-
-#### `ISubCategoriesService`
-| Method | Description |
-| :--- | :--- |
-| `ICollection<SubCategory> GetAllSubCategories()` | Returns all subcategories |
-| `SubCategory? GetSubCategoryById(Guid id)` | Returns subcategory or null if not found |
-
 ### Data / Repositories
 
 #### `ContactsRepository` (implements `IContactsRepository`)
@@ -225,52 +138,6 @@ The following technologies and libraries were used in this project:
 | Method | Description |
 | :--- | :--- |
 | `static bool MeetTheCriteria(string password)` | Checks password strength: minimum 8 chars, lowercase, uppercase, digit and special character |
-
-### DbContext
-
-#### `ContactsDbContext` (EF Core)
-| Item | Description |
-| :--- | :--- |
-| `DbSet<Contact> Contacts` | Contacts table |
-| `DbSet<Category> Categories` | Categories table |
-| `DbSet<SubCategory> SubCategories` | SubCategories table |
-| `OnModelCreating(ModelBuilder)` | Configures fields, DateOnly converter, relationships, indices and seeds initial data |
-
-### Migrations
-
-The initial migration `InitialCreate` defines database schema for Contacts, Categories and SubCategories and seeds default categories and subcategories.
-
-### Program / Configuration
-
-`Program.cs` registers DbContext (MySQL), repository and service implementations in the DI container and maps controllers.
-
----
-
-
-
-### Services
-
-#### Class: `CategoriesService`
-| Method | Description |
-| :--- | :--- |
-| `GetAllCategories()` | Returns all categories from database |
-| `GetCategoryById(Guid id)` | Returns category with specified ID |
-| `GetSubCategoriesByCategoryId(Guid id)` | Returns all subcategories of category with specified ID |
-
-#### Class: `SubCategoriesController`
-| Method | Description |
-| :--- | :--- |
-| `GetAll()` | Returns all subcategories from database |
-| `GetById(Guid id)` | Returns subcategory with specified ID |
-
-#### Class: `ContactsController`
-| Method | Description |
-| :--- | :--- |
-| `GetAll()` | Returns all contacts from database |
-| `GetById(Guid id)` | Returns contact with specified ID |
-| `CreateContact(CreateContactDTO createContactDto)` | Creates contact with fields given in `createContactDto` |
-| `UpdateContact(Guid id, UpdateContactDTO updateContactDto)` | Updates contact with specified ID with fields given in `updateContactDto` |
-| `DeleteContact(Guid id)` | Deletes contact with specified ID |
 
 ---
 
@@ -348,8 +215,8 @@ Contacts PUT request body example
 	"Surname": "Doe",
 	"Email": "john@example.com",
 	"Password": "P@ssw0rd!123",
-	"CategoryId": "<guid>|null",
-	"SubcategoryId": "<guid>|null",
+	"CategoryId": "<GUID>|null",
+	"SubcategoryId": "<GUID>|null",
 	"CustomSubCategory": "string|null",
 	"Phone": "123456789",
 	"BirthDate": "2000-01-01"
