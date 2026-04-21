@@ -1,0 +1,14 @@
+<div *ngIf="contact() as c; else loading">
+  <p>{{c.id}}</p>
+  <p>{{c.name}}</p>
+  <p>{{c.surname}}</p>
+  <p>{{c.email}}</p>
+  <p>{{c.password}}</p>
+  <p>{{c.category}}</p>
+  <p>{{c.subcategory}}</p>
+  <p>{{c.phone}}</p>
+  <p>{{c.birthDate}}</p>
+</div>
+<ng-template #loading>
+  <p>Ładowanie...</p>
+</ng-template>

@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { LoginService, Token } from '../../services/login.service';
+import { LoginService, } from '../../services/login.service';
+import { TokenDto } from '../../models/token.model';
 
 @Component({
   selector: 'app-login',
@@ -8,21 +9,25 @@ import { LoginService, Token } from '../../services/login.service';
   styleUrls: ['./login.css'],
 })
 export class Login {
-  public loggedIn = signal(false);
-
   constructor(private loginService: LoginService) {
-    this.loggedIn.set(this.loginService.isLoggedIn());
+  }
+
+  public loggedIn(): boolean {
+    return this.loginService.loggedIn();
   }
 
   login() {
     this.loginService.login().subscribe({
-      next: (res: Token) => {
-        this.loggedIn.set(this.loginService.isLoggedIn());
+      next: (res: TokenDto) => {
         return;
       },
       error: (err: any) => {
         alert("Something went wrong");
       }
     });
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 }

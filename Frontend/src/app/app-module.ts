@@ -6,9 +6,10 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Contacts } from './components/contacts/contacts';
 import { Login } from './components/login/login';
+import { Contact } from './components/contact/contact';
 
 @NgModule({
-  declarations: [App, Contacts, Login],
+  declarations: [App, Contacts, Login, Contact],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],

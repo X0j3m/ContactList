@@ -1,1 +1,32 @@
-<p>contacts works!</p>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Category</th>
+      <th>Subcategory</th>
+      <th>Phone</th>
+      <th>Birth date</th>
+      <th></th>
+      <th *ngIf="loggedIn()"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contact of contacts() ; trackBy: trackById">
+      <td>{{contact.id}}</td>
+      <td>{{contact.name}}</td>
+      <td>{{contact.surname}}</td>
+      <td>{{contact.email}}</td>
+      <td>{{contact.password}}</td>
+      <td>{{contact.category}}</td>
+      <td>{{contact.subcategory}}</td>
+      <td>{{contact.phone}}</td>
+      <td>{{contact.birthDate}}</td>
+      <td><button (click)="details(contact)" >Szczegóły</button></td>
+      <td *ngIf="loggedIn()"><button>Edytuj</button></td>
+    </tr>
+  </tbody>
+</table>
