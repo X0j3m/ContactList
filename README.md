@@ -20,6 +20,11 @@ The following technologies and libraries were used in this project:
 
 ### Controllers
 
+#### Class: `LoginController`
+| Method | Description |
+| :--- | :--- |
+| `Login()` | Returns generated bearer JWT token. If token generation fails, returns `400 BadRequest`. |
+
 #### Class: `CategoriesController`
 | Method | Description |
 | :--- | :--- |
@@ -139,6 +144,16 @@ The following technologies and libraries were used in this project:
 | :--- | :--- |
 | `static bool MeetTheCriteria(string password)` | Checks password strength: minimum 8 chars, lowercase, uppercase, digit and special character |
 
+#### `Jwt`
+| Method | Description |
+| :--- | :--- |
+| `JwtToken GenerateJwtToken(string username)` | Returns generated JWT token |
+
+#### `JwtToken`
+| Field | Description |
+| :--- | :--- |
+| `Token` | JWT Token |
+
 ---
 
 ## 🚀 Compilation and Execution
@@ -169,28 +184,35 @@ Note: if port `8080` or `8081` is occupied change it in `docker-compose.yml` fil
 
 Below are the available API endpoints. Replace {id} with a GUID where required.
 
+### Login API
+| HTTP | Endpoint | Description | Request Body | Possible Responses | Requires authentication token |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| GET | http://localhost:8080/api/Login | Get authentication bearer token | n/a | 200 OK (Authentication token with expiration time) / 400 BadRequest (Error generating JWT token) | No |
+
 ### Categories API
-| HTTP | Endpoint | Description | Request Body | Possible Responses |
-| :--- | :--- | :--- | :--- | :--- |
-| GET | http://localhost:8080/api/Categories | Get all categories | n/a | 200 OK (list of CategoryDTO) |
-| GET | http://localhost:8080/api/Categories/{id} | Get category by id | n/a | 200 OK (CategoryDTO) / 404 NotFound |
-| GET | http://localhost:8080/api/Categories/{id}/subcategories | Get subcategories for category | n/a | 200 OK (list of SubCategoryDTO) / 404 NotFound |
+| HTTP | Endpoint | Description | Request Body | Possible Responses | Requires bearer token |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| GET | http://localhost:8080/api/Categories | Get all categories | n/a | 200 OK (list of CategoryDTO) | No |
+| GET | http://localhost:8080/api/Categories/{id} | Get category by id | n/a | 200 OK (CategoryDTO) / 404 NotFound | No |
+| GET | http://localhost:8080/api/Categories/{id}/subcategories | Get subcategories for category | n/a | 200 OK (list of SubCategoryDTO) / 404 NotFound | No |
 
 ### SubCategories API
-| HTTP | Endpoint | Description | Request Body | Possible Responses |
-| :--- | :--- | :--- | :--- | :--- |
-| GET | http://localhost:8080/api/SubCategories | Get all subcategories | n/a | 200 OK (list of SubCategoryDTO) |
-| GET | http://localhost:8080/api/SubCategories/{id} | Get subcategory by id | n/a | 200 OK (SubCategoryDTO) / 404 NotFound |
+| HTTP | Endpoint | Description | Request Body | Possible Responses | Requires bearer token |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| GET | http://localhost:8080/api/SubCategories | Get all subcategories | n/a | 200 OK (list of SubCategoryDTO) | No |
+| GET | http://localhost:8080/api/SubCategories/{id} | Get subcategory by id | n/a | 200 OK (SubCategoryDTO) / 404 NotFound | No |
 
 ### Contacts API
-| HTTP | Endpoint | Description | Request Body | Possible Responses |
-| :--- | :--- | :--- | :--- | :--- |
-| GET | http://localhost:8080/api/Contacts | Get all contacts | n/a | 200 OK (list of ContactDTO) |
-| GET | http://localhost:8080/api/Contacts/{id} | Get contact by id | n/a | 200 OK (ContactDTO) / 404 NotFound |
-| POST | http://localhost:8080/api/Contacts | Create a new contact | JSON (Example below) | 201 Created (body: created id) / 400 BadRequest |
-| PUT | http://localhost:8080/api/Contacts/{id} | Update contact by id | JSON (Example below) | 204 NoContent / 400 BadRequest / 404 NotFound |
-| DELETE | http://localhost:8080/api/Contacts/{id} | Delete contact by id | n/a | 204 NoContent / 404 NotFound |
+| HTTP | Endpoint | Description | Request Body | Possible Responses | Requires bearer token |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| GET | http://localhost:8080/api/Contacts | Get all contacts | n/a | 200 OK (list of ContactDTO) | No |
+| GET | http://localhost:8080/api/Contacts/{id} | Get contact by id | n/a | 200 OK (ContactDTO) / 404 NotFound | No |
+| POST | http://localhost:8080/api/Contacts | Create a new contact | JSON (Example below) | 201 Created (body: created id) / 400 BadRequest / 401 Unauthorized| Yes |
+| PUT | http://localhost:8080/api/Contacts/{id} | Update contact by id | JSON (Example below) | 204 NoContent / 400 BadRequest / 401 Unauthorized / 404 NotFound | Yes |
+| DELETE | http://localhost:8080/api/Contacts/{id} | Delete contact by id | n/a | 204 NoContent / 401 Unauthorized / 404 NotFound | Yes |
+
 ---
+
 # 📜 Requests body exapmles
 Contacts POST request body example
 ``` bash
